@@ -1,99 +1,126 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Future Partner?</title>
+<title>Future Partner 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  body {
-    text-align: center;
-    margin-top: 80px;
-    font-family: Arial;
-    overflow: hidden;
-    animation: bgMove 8s infinite alternate;
-  }
+body {
+  text-align: center;
+  margin-top: 50px;
+  font-family: Arial;
+  overflow: hidden;
+  animation: bgMove 8s infinite alternate;
+}
 
-  /* Background Gradient Animation */
-  @keyframes bgMove {
-    0% { background: #ffd6e7; }
-    50% { background: #ffe6f5; }
-    100% { background: #ffd1dc; }
-  }
+/* Background Gradient */
+@keyframes bgMove {
+  0% { background: #ffd6e7; }
+  50% { background: #ffe6f5; }
+  100% { background: #ffd1dc; }
+}
 
-  h1 {
-    color: #ff2e63;
-    animation: bounce 1.5s infinite;
-  }
+h1 {
+  color: #ff2e63;
+  animation: bounce 1.5s infinite;
+  font-size: 26px;
+}
 
-  @keyframes bounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.15); }
-    100% { transform: scale(1); }
-  }
+@keyframes bounce {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
 
-  button {
-    padding: 14px 28px;
-    font-size: 18px;
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    margin: 10px;
-    background: #ff4d88;
-    color: white;
-    transition: 0.3s;
-  }
+button {
+  padding: 14px 20px;
+  font-size: 20px;
+  width: 140px;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+  background: #ff4d88;
+  color: white;
+}
 
-  button:hover {
-    background: #ff1a66;
-    transform: scale(1.1);
-  }
+button:hover {
+  background: #ff1a66;
+}
 
-  #noBtn {
-    position: absolute;
-  }
+#noBtn { position: absolute; }
 
-  #loveMsg {
-    display: none;
-    font-size: 48px;
-    color: red;
-    margin-top: 40px;
-    animation: glow 1s infinite alternate;
-  }
+#loveMsg {
+  display: none;
+  font-size: 40px;
+  color: red;
+  margin-top: 30px;
+  animation: glow 1s infinite alternate, blink 1.2s infinite;
+}
 
-  @keyframes glow {
-    from { text-shadow: 0 0 10px pink; }
-    to { text-shadow: 0 0 25px red; }
-  }
+@keyframes glow {
+  from { text-shadow: 0 0 10px pink; }
+  to { text-shadow: 0 0 25px red; }
+}
 
-  /* Floating Hearts */
-  .heart {
-    position: fixed;
-    bottom: -20px;
-    animation: floatUp 5s linear infinite;
-  }
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
 
-  @keyframes floatUp {
-    0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-900px); opacity: 0; }
-  }
+/* Floating Hearts Up */
+.heartUp {
+  position: fixed;
+  bottom: -20px;
+  animation: floatUp 5s linear forwards;
+}
 
-  /* Sparkle Stars */
-  .star {
-    position: fixed;
-    top: 0;
-    color: gold;
-    animation: sparkle 3s linear infinite;
-  }
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-900px); opacity: 0; }
+}
 
-  @keyframes sparkle {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(600px); }
-  }
+/* Heart Rain Down */
+.rainHeart {
+  position: fixed;
+  top: -20px;
+  animation: rainFall linear forwards;
+}
+
+@keyframes rainFall {
+  0% { transform: translateY(-50px); opacity: 1; }
+  100% { transform: translateY(900px); opacity: 0; }
+}
+
+/* Sparkles */
+.star {
+  position: fixed;
+  animation: sparkle 3s linear forwards;
+}
+
+@keyframes sparkle {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(600px); }
+}
+
+/* Fireworks */
+.fire {
+  position: fixed;
+  font-size: 22px;
+  animation: explode 1.2s ease-out forwards;
+}
+
+@keyframes explode {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(4); opacity: 0; }
+}
 </style>
 </head>
 
 <body>
 
-<h1 id="question">Will you be my future partner? ❤️</h1>
+<h1 id="question">Shantha , Will you be my future partner? ❤️</h1>
 
 <div id="buttons">
   <button onclick="sayLove()">YES</button>
@@ -102,57 +129,88 @@
 
 <h2 id="loveMsg">I LOVE YOU 💖</h2>
 
-<!-- Background Music -->
 <audio id="bgMusic" loop>
-  <source src="Samjhawan(KoshalWorld.Com).mp3" type="audio/mpeg">
+  <source src="yourmusic.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  const noBtn = document.getElementById("noBtn");
+const noBtn = document.getElementById("noBtn");
 
-  // NO button run away
-  noBtn.addEventListener("mouseover", function() {
-    const x = Math.random() * window.innerWidth * 0.8;
-    const y = Math.random() * window.innerHeight * 0.8;
-    noBtn.style.left = x + "px";
-    noBtn.style.top = y + "px";
-  });
+/* Move NO Button */
+function moveNoButton() {
+  const x = Math.random() * window.innerWidth * 0.7;
+  const y = Math.random() * window.innerHeight * 0.7;
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
 
-  // YES click
-  function sayLove() {
-    document.getElementById("bgMusic").play();
-    document.getElementById("question").style.display = "none";
-    document.getElementById("buttons").style.display = "none";
-    document.getElementById("loveMsg").style.display = "block";
+/* Desktop hover */
+noBtn.addEventListener("mouseover", moveNoButton);
+
+/* Mobile touch */
+noBtn.addEventListener("touchstart", moveNoButton);
+
+/* Extra click safety */
+noBtn.addEventListener("click", moveNoButton);
+
+/* YES Click */
+function sayLove() {
+  document.getElementById("bgMusic").play();
+  document.getElementById("question").style.display = "none";
+  document.getElementById("buttons").style.display = "none";
+  document.getElementById("loveMsg").style.display = "block";
+  fireworks();
+  setInterval(heartRain, 200);
+}
+
+/* Floating Hearts Up */
+function heartUp() {
+  const h = document.createElement("div");
+  h.className = "heartUp";
+  h.innerHTML = "💖";
+  h.style.left = Math.random() * window.innerWidth + "px";
+  h.style.fontSize = (Math.random() * 20 + 15) + "px";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 5000);
+}
+setInterval(heartUp, 400);
+
+/* Heart Rain */
+function heartRain() {
+  const heart = document.createElement("div");
+  heart.className = "rainHeart";
+  heart.innerHTML = "💗";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+
+/* Sparkles */
+function star() {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.innerHTML = "✨";
+  s.style.left = Math.random() * window.innerWidth + "px";
+  document.body.appendChild(s);
+  setTimeout(() => s.remove(), 3000);
+}
+setInterval(star, 600);
+
+/* Fireworks */
+function fireworks() {
+  for (let i = 0; i < 25; i++) {
+    const dot = document.createElement("div");
+    dot.className = "fire";
+    dot.innerHTML = "💥";
+    dot.style.left = Math.random() * window.innerWidth + "px";
+    dot.style.top = Math.random() * window.innerHeight + "px";
+    document.body.appendChild(dot);
+    setTimeout(() => dot.remove(), 1200);
   }
-
-  // Floating Hearts
-  function createHeart() {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * window.innerWidth + "px";
-    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-  }
-
-  setInterval(createHeart, 300);
-
-  // Sparkle Stars
-  function createStar() {
-    const star = document.createElement("div");
-    star.className = "star";
-    star.innerHTML = "✨";
-    star.style.left = Math.random() * window.innerWidth + "px";
-    star.style.fontSize = (Math.random() * 15 + 10) + "px";
-    document.body.appendChild(star);
-    setTimeout(() => star.remove(), 3000);
-  }
-
-  setInterval(createStar, 500);
+}
 </script>
 
 </body>
 </html>
-
