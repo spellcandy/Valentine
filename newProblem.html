@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Future Partner?</title>
+
+<style>
+  body {
+    text-align: center;
+    margin-top: 80px;
+    font-family: Arial;
+    overflow: hidden;
+    animation: bgMove 8s infinite alternate;
+  }
+
+  /* Background Gradient Animation */
+  @keyframes bgMove {
+    0% { background: #ffd6e7; }
+    50% { background: #ffe6f5; }
+    100% { background: #ffd1dc; }
+  }
+
+  h1 {
+    color: #ff2e63;
+    animation: bounce 1.5s infinite;
+  }
+
+  @keyframes bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+
+  button {
+    padding: 14px 28px;
+    font-size: 18px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    background: #ff4d88;
+    color: white;
+    transition: 0.3s;
+  }
+
+  button:hover {
+    background: #ff1a66;
+    transform: scale(1.1);
+  }
+
+  #noBtn {
+    position: absolute;
+  }
+
+  #loveMsg {
+    display: none;
+    font-size: 48px;
+    color: red;
+    margin-top: 40px;
+    animation: glow 1s infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px pink; }
+    to { text-shadow: 0 0 25px red; }
+  }
+
+  /* Floating Hearts */
+  .heart {
+    position: fixed;
+    bottom: -20px;
+    animation: floatUp 5s linear infinite;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-900px); opacity: 0; }
+  }
+
+  /* Sparkle Stars */
+  .star {
+    position: fixed;
+    top: 0;
+    color: gold;
+    animation: sparkle 3s linear infinite;
+  }
+
+  @keyframes sparkle {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(600px); }
+  }
+</style>
+</head>
+
+<body>
+
+<h1 id="question">Will you be my future partner? ❤️</h1>
+
+<div id="buttons">
+  <button onclick="sayLove()">YES</button>
+  <button id="noBtn">NO</button>
+</div>
+
+<h2 id="loveMsg">I LOVE YOU 💖</h2>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="Samjhawan(KoshalWorld.Com).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+
+  // NO button run away
+  noBtn.addEventListener("mouseover", function() {
+    const x = Math.random() * window.innerWidth * 0.8;
+    const y = Math.random() * window.innerHeight * 0.8;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+
+  // YES click
+  function sayLove() {
+    document.getElementById("bgMusic").play();
+    document.getElementById("question").style.display = "none";
+    document.getElementById("buttons").style.display = "none";
+    document.getElementById("loveMsg").style.display = "block";
+  }
+
+  // Floating Hearts
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+
+  setInterval(createHeart, 300);
+
+  // Sparkle Stars
+  function createStar() {
+    const star = document.createElement("div");
+    star.className = "star";
+    star.innerHTML = "✨";
+    star.style.left = Math.random() * window.innerWidth + "px";
+    star.style.fontSize = (Math.random() * 15 + 10) + "px";
+    document.body.appendChild(star);
+    setTimeout(() => star.remove(), 3000);
+  }
+
+  setInterval(createStar, 500);
+</script>
+
+</body>
+</html>
